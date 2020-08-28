@@ -276,8 +276,12 @@ RUN \
     del-pkg build-dependencies && \
     rm -rf /tmp/* /tmp/.[!.]*
 
+RUN python3 -m pip install "certbot-dns-cloudflare==0.30"
+
 # Add files.
 COPY rootfs/ /
+COPY rootfs/defaults/cli.ini /etc/letsencrypt.ini
+COPY rootfs/opt/nginx-proxy-manager/certificate.js /opt/nginx-proxy-manager/internal/certificate.js
 
 # Set environment variables.
 ENV APP_NAME="Nginx Proxy Manager" \
